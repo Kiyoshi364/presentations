@@ -1,0 +1,196 @@
+\documentclass{beamer}
+
+\usepackage[brazil]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{listings}
+
+\usetheme{Hannover}
+\usecolortheme{crane}
+
+\title{Tipos do Céu ao Chão}
+\author{Hashimoto}
+\date{?? de ??? de 2022}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{ToC}
+    \tableofcontents[hideallsubsections]
+\end{frame}
+
+\section{Tipos}
+\begin{frame}
+    \frametitle{Intro}
+\end{frame}
+
+\subsection{Notação}
+\begin{frame}
+    \frametitle{Notação}
+\end{frame}
+
+\section{Tipos - Caso Recursivo}
+\subsection{Produto}
+\begin{frame}
+    \frametitle{Produto \(A \times B\)}
+    \begin{itemize}
+        \item Construtor
+            \[
+                A \to B \to A \times B
+            \]
+        \item Destrutor
+            \[
+                A \times B \to (A \to B \to C) \to C
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplos: \(A \times B\)}
+    \begin{itemize}
+        \item C:
+        \begin{lstlisting}[language=C]
+struct produto {
+    int A;
+    int B;
+};
+        \end{lstlisting}
+        \item Java:
+        \begin{lstlisting}[language=Haskell]
+class Produto {
+    private int A;
+    private int B;
+}
+        \end{lstlisting}
+        \item Haskell:
+        \begin{lstlisting}[language=Haskell]
+data Produto = P { a :: Int, b :: Int }
+        \end{lstlisting}
+    \end{itemize}
+\end{frame}
+
+\subsection{Soma}
+\begin{frame}
+    \frametitle{Soma \(A + B\)}
+    \begin{itemize}
+        \item Construtores
+            \[
+                left : A \to A + B
+            \]
+            \[
+                right : B \to A + B
+            \]
+        \item Destrutor
+            \[
+                A + B \to (A \to C) \to (B \to C) \to C
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exemplos: \(A + B\)}
+\end{frame}
+
+\subsection{Exponencial}
+\begin{frame}
+    \frametitle{Exponencial \(B^A\)}
+    \begin{itemize}
+        \item Construtor
+            \[
+                (A \to B) \to B^A
+            \]
+        \item Destrutor
+            \[
+                eval : B^A \to A \to B
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exemplos: \(B^A\)}
+\end{frame}
+
+\section{Tipos - Casos Base}
+\begin{frame}
+    \frametitle{Placeholder}
+\end{frame}
+
+\subsection{Void}
+\begin{frame}
+    \frametitle{Void \(Void\)}
+\end{frame}
+
+\subsection{Unity}
+\begin{frame}
+    \frametitle{Unity \(()\)}
+\end{frame}
+
+\subsection{Bool}
+\begin{frame}
+    \frametitle{Bool}
+\end{frame}
+
+\subsection{Int}
+\begin{frame}
+    \frametitle{Int (I32)}
+\end{frame}
+
+\section{Tipos Paramétricos}
+\begin{frame}
+    \frametitle{Tipos Paramétricos}
+\end{frame}
+
+\subsection{Maybe}
+\begin{frame}
+    \frametitle{Maybe}
+\end{frame}
+
+\subsection{Either}
+\begin{frame}
+    \frametitle{Either}
+\end{frame}
+
+\section{Classes de Tipos}
+\begin{frame}
+    \frametitle{Classes de Tipos}
+\end{frame}
+
+\subsection{Funtores}
+\begin{frame}
+    \frametitle{Funtores}
+\end{frame}
+
+\subsection{Implementação}
+\begin{frame}
+    \frametitle{Funtores}
+\end{frame}
+
+\section{Outros Tipos}
+\begin{frame}
+    \frametitle{Outros Tipos (Fora do escopo)}
+\end{frame}
+
+\subsection{Tipos Dependentes}
+\begin{frame}
+    \frametitle{Tipos Dependentes}
+\end{frame}
+
+\subsection{Tipos Lineares}
+\begin{frame}
+    \frametitle{Tipos Lineares}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Placeholder}
+\end{frame}
+
+\begin{frame}
+    \frametitle{FIM}
+\end{frame}
+
+\end{document}
