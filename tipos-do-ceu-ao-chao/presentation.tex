@@ -6,12 +6,19 @@
 
 \usepackage{listings}
 
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=red,
+}
+
 \usetheme{Hannover}
 \usecolortheme{crane}
 
 \title{Tipos do Céu ao Chão}
 \author{Hashimoto}
-\date{?? de ??? de 2022}
+\date{17 de Junho de 2022}
 
 \begin{document}
 
@@ -29,7 +36,6 @@
     \frametitle{Intro}
 \end{frame}
 
-\subsection{Notação}
 \begin{frame}
     \frametitle{Notação}
 \end{frame}
@@ -106,7 +112,7 @@ data Produto = P { a :: Int, b :: Int }
             \]
         \item Destrutor
             \[
-                eval : B^A \to A \to B
+                eval : B^A \to (A \to B)
             \]
     \end{itemize}
 \end{frame}
@@ -115,19 +121,30 @@ data Produto = P { a :: Int, b :: Int }
     \frametitle{Exemplos: \(B^A\)}
 \end{frame}
 
+\subsection{Tipos Algébricos}
+\begin{frame}[fragile]
+    \frametitle{Tipos Algébricos}
+    \begin{lstlisting}[language=Haskell]
+data TipoAlg
+  = Caso1 A B C
+  | Caso2
+  | Caso3 F
+    \end{lstlisting}
+\end{frame}
+
 \section{Tipos - Casos Base}
 \begin{frame}
     \frametitle{Placeholder}
 \end{frame}
 
-\subsection{Void}
-\begin{frame}
-    \frametitle{Void \(Void\)}
-\end{frame}
-
 \subsection{Unity}
 \begin{frame}
-    \frametitle{Unity \(()\)}
+    \frametitle{\(()\)}
+\end{frame}
+
+\subsection{Void}
+\begin{frame}
+    \frametitle{\(Void\)}
 \end{frame}
 
 \subsection{Bool}
@@ -137,27 +154,64 @@ data Produto = P { a :: Int, b :: Int }
 
 \subsection{Int}
 \begin{frame}
-    \frametitle{Int (I32)}
+    \frametitle{I32}
 \end{frame}
 
 \section{Tipos Paramétricos}
 \begin{frame}
     \frametitle{Tipos Paramétricos}
+    Outros nomes:
+    \begin{itemize}
+        \item Generics [Java]
+        \item Macros (*) [C]
+        \item Meta Programming (Comptime) [Zig]
+        \item Templates (typename) [C++]
+    \end{itemize}
 \end{frame}
 
 \subsection{Maybe}
 \begin{frame}
-    \frametitle{Maybe}
+    \frametitle{Maybe a}
 \end{frame}
 
 \subsection{Either}
 \begin{frame}
-    \frametitle{Either}
+    \frametitle{Either a b}
+\end{frame}
+
+\subsection{List}
+\begin{frame}
+    \frametitle{[a]}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Implementação (Tipos Paramétricos)}
 \end{frame}
 
 \section{Classes de Tipos}
 \begin{frame}
     \frametitle{Classes de Tipos}
+    Outros nomes:
+    \begin{itemize}
+        \item Concepts [C++20]
+        \item Interface [Go, Java, Kotlin, TypeScript]
+        \item Module System [Standard ML]
+        \item Mixin (?) [Ruby]
+        \item Protocol [Erlang, Elixir, Swift]
+        \item Typeclasses [Haskell]
+        \item TypeTraits (?) [C++/Boost]
+        \item Type Constrains [D]
+        \item Traits [Rust]
+        \item Vtable/Function Pointers [C, C++, Zig]
+    \end{itemize}
+    \vfill
+    ``Concepts vs Typeclasses vs Traits vs Protocols''
+    \url{youtu.be/E-2y1qHQvTg}
+\end{frame}
+
+\subsection{Monoid}
+\begin{frame}
+    \frametitle{Monoid}
 \end{frame}
 
 \subsection{Funtores}
@@ -165,9 +219,13 @@ data Produto = P { a :: Int, b :: Int }
     \frametitle{Funtores}
 \end{frame}
 
-\subsection{Implementação}
+\subsection{Monad}
 \begin{frame}
-    \frametitle{Funtores}
+    \frametitle{Monad}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Implementação (Classe de Tipos)}
 \end{frame}
 
 \section{Outros Tipos}
