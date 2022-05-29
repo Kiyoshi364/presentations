@@ -16,6 +16,8 @@
 \usetheme{Hannover}
 \usecolortheme{crane}
 
+\newcommand{\nota}[1]{\textbf{Nota:}\textit{ #1}}
+
 \title{Tipos do Céu ao Chão}
 \author{Hashimoto}
 \date{17 de Junho de 2022}
@@ -182,6 +184,70 @@ data TipoAlg
 \subsection{List}
 \begin{frame}
     \frametitle{[a]}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{int *p = \&i;}
+    \begin{lstlisting}[language=Haskell]
+Pointer a = Null
+    | Estrela  a
+    | Colchete [a]
+    \end{lstlisting}
+    \vfill
+    Problemas (teóricos) dessa representação:
+    \begin{itemize}
+        \item
+            \texttt{C} não sabe diferenciar
+            \texttt{Estrela} e \texttt{Colchete}
+        \item
+            Temos que checar se é \texttt{Null} o tempo todo
+        \item
+            \textbf{Invisível:} no caso \texttt{Colchete},
+            podemos não saber o tamanho da lista
+            \par
+            \nota{ainda podemos ter o ``null terminator''
+            ou guardar um tamanho externo}
+        \item
+            Na prática, só queremos usar
+            \texttt{Estrela} ou \texttt{Colchete}
+            \par
+            \nota{o ``ou'' é exclusivo}
+        \item
+            Mais alguns (específicos sobre implementação) \dots
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Soluções: Zig}
+    \begin{lstlisting}[language=C]
+const OptionalInt = ?i32;
+
+const PtrToOneInt = *i32;
+
+const PtrToManyInt = [*]i32;
+
+const NullablePtrToOneInt = ?*i32;
+
+const PtrToOneOptionalInt = *?i32;
+
+const NullablePtrToManyInt = ?[*]i32;
+
+const PtrToManyOptionalInt = [*]?i32;
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Outros: Zig}
+    \begin{lstlisting}[language=C]
+// struct { len : usize, data : [*]i32, };
+const Slice = []i32;
+
+// Tem valores no array ate achar um A
+// A eh um valor de i32
+const Sentinel = [*:A]i32;
+
+const CharStar = [*:0]u8;
+    \end{lstlisting}
 \end{frame}
 
 \begin{frame}
