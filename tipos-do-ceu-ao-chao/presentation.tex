@@ -13,10 +13,26 @@
     urlcolor=red,
 }
 
+\usepackage{multicol}
+
 \usetheme{Hannover}
 \usecolortheme{crane}
 
+\newcommand{\lang}[1]{\texttt{#1}}
+\newcommand{\inlcode}[1]{\texttt{#1}}
+
 \newcommand{\nota}[1]{\textbf{Nota:}\textit{ #1}}
+
+\newcommand{\tabelasizealign}{%
+    \begin{tabular}{|c|c|c|}%
+        \hline%
+        Tipo & sizeof & alignment \\\hline%
+        \hline%
+        bool & 1      & 1         \\\hline%
+        u32  & 4      & 4         \\\hline%
+        u64  & 8      & 8         \\\hline%
+    \end{tabular}%
+}
 
 \title{Tipos do Céu ao Chão}
 \author{Hashimoto}
@@ -61,25 +77,104 @@
 \begin{frame}[fragile]
     \frametitle{Exemplos: \(A \times B\)}
     \begin{itemize}
-        \item C:
+        \item \lang{C} \emph{(struct)}:
+            \begin{lstlisting}[language=C]
+struct ProdutoIntDouble {
+    int a;
+    double b;
+};
+            \end{lstlisting}
+        \item \lang{Java} \emph{(class)} (*):
+            \begin{lstlisting}[language=Java]
+class ProdutoIntDouble {
+    private int a;
+    private double b;
+}
+            \end{lstlisting}
+        \item \lang{Haskell} \emph{(record)}:
+            \begin{lstlisting}[language=Haskell]
+data ProdutoIntDouble = PIntDouble
+    { a :: Int
+    , b :: Double
+    }
+            \end{lstlisting}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Matemática de Struct}
+    Informações importantes de uma \emph{struct}:
+    \begin{itemize}
+        \item Tamanho \emph{(sizeof)}:
+            quantos bytes ocupa?
+        \item Alinhamento \emph{(alignment)}:
+            endereço é múltiplo de quanto?
+    \end{itemize}
+    \vfill
+    \nota{Nem sempre o \emph{tamanho final}
+        é a soma dos \emph{tamanhos}!}
+    \vfill
+    Alinhamento:
+    \url{www.delftstack.com/howto/c/struct-alignment-in-c/}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplos: Matemática de Struct}
+    \begin{multicols}{2}
         \begin{lstlisting}[language=C]
-struct produto {
-    int A;
-    int B;
+struct Exemplo1 {
+    u32 a;
+    u32 b;
 };
         \end{lstlisting}
-        \item Java:
-        \begin{lstlisting}[language=Haskell]
-class Produto {
-    private int A;
-    private int B;
-}
+        \begin{lstlisting}[language=C]
+struct Exemplo2 {
+    u32 a;
+    bool b;
+};
         \end{lstlisting}
-        \item Haskell:
-        \begin{lstlisting}[language=Haskell]
-data Produto = P { a :: Int, b :: Int }
+        \begin{lstlisting}[language=C]
+struct Exemplo3 {
+    u64 a;
+    u32 b;
+    u32 c;
+};
         \end{lstlisting}
-    \end{itemize}
+        \columnbreak
+        \begin{lstlisting}[language=C]
+struct Exemplo4 {
+    u32 b;
+    u64 a;
+    u32 c;
+};
+        \end{lstlisting}
+        \begin{lstlisting}[language=C]
+struct Exemplo5 {
+    u32 b; u32 pad1;
+    u64 a;
+    u32 c; u32 pad2;
+};
+        \end{lstlisting}
+        \tabelasizealign{}
+    \end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Respostas: Matemática de Struct}
+    \begin{center} \begin{tabular}{|c|c|c||c|}
+        \hline%
+        Tipo      & sizeof & alignment & waste \\\hline
+        \hline
+        bool      & 1      & 1         & 0     \\\hline
+        u32       & 4      & 4         & 0     \\\hline
+        u64       & 8      & 8         & 0     \\\hline
+        \hline
+        Exemplo1  & 8      & 4         & 0     \\\hline
+        Exemplo2  & 8      & 4         & 3     \\\hline
+        Exemplo3  & 16     & 8         & 0     \\\hline
+        Exemplo4  & 24     & 8         & 8     \\\hline
+        Exemplo5  & 24     & 8         & 0     \\\hline
+    \end{tabular} \end{center}
 \end{frame}
 
 \subsection{Soma}
@@ -98,6 +193,29 @@ data Produto = P { a :: Int, b :: Int }
                 A + B \to (A \to C) \to (B \to C) \to C
             \]
     \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Unions}
+    \begin{lstlisting}[language=C]
+union soma {
+    int a;
+    float b;
+    char c;
+};
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Enums}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Tagged Unions}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Matemática de Tagged Union}
 \end{frame}
 
 \begin{frame}
