@@ -59,6 +59,10 @@
 \end{frame}
 
 \section{Tipos - Caso Recursivo}
+\begin{frame}
+    \frametitle{Placeholder}
+\end{frame}
+
 \subsection{Produto}
 \begin{frame}
     \frametitle{Produto \(A \times B\)}
@@ -70,6 +74,10 @@
         \item Destrutor
             \[
                 A \times B \to (A \to B \to C) \to C
+            \]
+        \item Valores
+            \[
+                @(A \times B) = @(A) \times @(B)
             \]
     \end{itemize}
 \end{frame}
@@ -192,6 +200,10 @@ struct Exemplo5 {
             \[
                 A + B \to (A \to C) \to (B \to C) \to C
             \]
+        \item Valores
+            \[
+                @(A + B) = @(A) + @(B)
+            \]
     \end{itemize}
 \end{frame}
 
@@ -233,6 +245,10 @@ union soma {
         \item Destrutor
             \[
                 eval : B^A \to (A \to B)
+            \]
+        \item Valores
+            \[
+                @(B^A) = @(B)^{@(A)}
             \]
     \end{itemize}
 \end{frame}
