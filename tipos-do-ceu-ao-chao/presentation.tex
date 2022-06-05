@@ -430,17 +430,102 @@ const CharStar = [*:0]u8;
 
 \section{Outros Tipos}
 \begin{frame}
-    \frametitle{Outros Tipos (Fora do escopo)}
+    \frametitle{Outros Tipos}
+    Existem mais tipos!
+    \vfill
+    Mas infelizmente não dá tempo de falar sobre todos eles
+    \texttt{:(\phantom)}
+    \vfill
+    Vou passar rapidinho por eles.
 \end{frame}
 
-\subsection{Tipos Dependentes}
 \begin{frame}
     \frametitle{Tipos Dependentes}
+    Permite criar \emph{tipos} que dependem de \emph{valores}
+    \vfill
+    Útil para dar tipos para: \texttt{arrays}, \emph{provas}, \dots
+    \vfill
+    \begin{columns}
+        \column{0.5\textwidth}
+            Linguagens de programação:
+            \begin{itemize}
+                \item Agda
+                \item C++ [Template]
+                \item Idris
+            \end{itemize}
+        \column{0.5\textwidth}
+            Assistentes de Prova:
+            \begin{itemize}
+                \item ALF
+                \item Coq
+                \item Lean
+            \end{itemize}
+    \end{columns}
+    \vfill
+    Mais exemplos:
+    \url{en.wikipedia.org/wiki/Category:Dependently_typed_languages}
 \end{frame}
 
-\subsection{Tipos Lineares}
 \begin{frame}
-    \frametitle{Tipos Lineares}
+    \frametitle{Tipos Sub-estruturais}
+    \only<1>{
+        \begin{quote}
+            Como assim, você está usando um ovo duas vezes???
+            Você não pode fazer dois bolos e só usar um ovo!!!
+        \end{quote}
+    } \only<2-> {
+        \begin{center} \begin{tabular}{|c|c|c|c|}
+            \hline
+                     & Exchange & Weakening & Contraction \\\hline
+            \hline
+            Ordered  & Não      & Não       & Não         \\\hline
+            Linear   & Sim      & Não       & Não         \\\hline
+            Affine   & Sim      & Sim       & Não         \\\hline
+            Relevant & Sim      & Não       & Sim         \\\hline
+            Normal   & Sim      & Sim       & Sim         \\\hline
+        \end{tabular} \end{center}
+        \nota{Existe uma lógica para cada linha da tabela.}
+        \vfill
+        \only<2> {
+            Usos:
+            \begin{itemize}
+                \item Ordered: Alocação em Stack
+                \item Linear: Uso de recursos (exatamente uma vez)
+                \item Affine: Uso de recursos (zero ou uma vez)
+                \item Relevant: Uso de recursos (uma ou mais vezes)
+            \end{itemize}
+        } \only<3> {
+            Linguagens de programação (Linear/Affine):
+            \begin{itemize}
+                \item Idris
+                \item Linear ML
+                \item Rust [Borrow-checker, Copy Trait]
+                \item Nim
+            \end{itemize}
+        }
+        \vfill
+        Ref: \url{en.wikipedia.org/wiki/Substructural_type_system}
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Efeitos Algébricos (\emph{*novo*})}
+    São \texttt{exceptions} (\texttt{exceções}),
+    porém mais \emph{gerais}.
+    \vfill
+    Os \texttt{handlers} (algo tipo os blocos \texttt{catch})
+    podem continuar a função que gerou a exceção e
+    modificar a saída.
+    \vfill
+    Linguagens de programação (de pesquisa):
+    \begin{itemize}
+        \item Eff (\url{eff-lang.org})
+        \item Effekt (\url{effekt-lang.org})
+        \item Koka (\url{koka-lang.github.io})
+        \item Unison (\url{unison-lang.org/})
+    \end{itemize}
+    \vfill
+    Ref: \url{en.wikipedia.org/wiki/Effect_system}
 \end{frame}
 
 \begin{frame}
