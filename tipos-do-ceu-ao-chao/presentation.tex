@@ -23,6 +23,14 @@
 
 \newcommand{\nota}[1]{\textbf{Nota:}\textit{ #1}}
 
+\renewcommand{\d}{\:.\:}
+
+% Tipos {
+\newcommand{\typetam}{@}
+\newcommand{\typeeq}{\equiv}
+\newcommand{\typesim}{\simeq}
+% }
+
 \newcommand{\tabelasizealign}{%
     \begin{tabular}{|c|c|c|}%
         \hline%
@@ -56,6 +64,14 @@
 
 \begin{frame}
     \frametitle{Notação}
+    \begin{itemize}
+        \item Tamanho de um tipo: \(\typetam(A)\)
+        \item Dois tipos são iguais: \( A \typeeq B \)
+        \item Dois tipos são isomorficos (equivalentes):
+            \( A \typesim B \)
+        \item Função que recebe \(A\), \(B\), \(C\),
+            e retorna \(D\): \[ A \to B \to C \to D \]
+    \end{itemize}
 \end{frame}
 
 \section{Tipos - Caso Recursivo}
@@ -71,13 +87,29 @@
             \[
                 A \to B \to A \times B
             \]
-        \item Destrutor
+        \item Destrutor (projeções)
             \[
-                A \times B \to (A \to B \to C) \to C
+                \pi_A : A \times B \to A
+            \] \[
+                \pi_B : A \times B \to B
             \]
         \item Valores
             \[
-                @(A \times B) = @(A) \times @(B)
+                \typetam(A \times B) = \typetam(A) \times \typetam(B)
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Corolário}
+    \begin{itemize}
+        \item É associativo:
+            \[
+                (A \times B) \times C \typesim A \times (B \times C)
+            \]
+        \item É comutativo:
+            \[
+                (A \times B) \typesim (B \times A)
             \]
     \end{itemize}
 \end{frame}
@@ -167,7 +199,7 @@ struct Exemplo5 {
     \end{multicols}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
     \frametitle{Respostas: Matemática de Struct}
     \begin{center} \begin{tabular}{|c|c|c||c|}
         \hline%
@@ -192,23 +224,24 @@ struct Exemplo5 {
         \item Construtores
             \[
                 left : A \to A + B
-            \]
-            \[
+            \] \[
                 right : B \to A + B
             \]
-        \item Destrutor
+        \item (Família de) Destrutor(es)
             \[
-                A + B \to (A \to C) \to (B \to C) \to C
+                \forall x \d
+                A + B \to (A \to x) \to (B \to x) \to x
             \]
         \item Valores
             \[
-                @(A + B) = @(A) + @(B)
+                \typetam(A + B) = \typetam(A) + \typetam(B)
             \]
     \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Unions}
+    Em \lang{C}, temos \emph{Unions}!
     \begin{lstlisting}[language=C]
 union soma {
     int a;
@@ -248,7 +281,7 @@ union soma {
             \]
         \item Valores
             \[
-                @(B^A) = @(B)^{@(A)}
+                \typetam\left(B^A\right) = \typetam(B)^{\typetam(A)}
             \]
     \end{itemize}
 \end{frame}
