@@ -26,7 +26,7 @@
 \renewcommand{\d}{\:.\:}
 
 % Tipos {
-\newcommand{\typetam}{@}
+\newcommand{\typetam}{\#}
 \newcommand{\typeeq}{\equiv}
 \newcommand{\typesim}{\simeq}
 % }
@@ -64,6 +64,7 @@
 
 \begin{frame}
     \frametitle{Notação}
+    Alto nível:
     \begin{itemize}
         \item Tamanho de um tipo: \(\typetam(A)\)
         \item Dois tipos são iguais: \( A \typeeq B \)
@@ -71,6 +72,16 @@
             \( A \typesim B \)
         \item Função que recebe \(A\), \(B\), \(C\),
             e retorna \(D\): \[ A \to B \to C \to D \]
+    \end{itemize}
+
+    Baixo nível:
+    \begin{itemize}
+        \item Inteiro com sinal de \(n\) bits: \(i\_n\)
+        \item Inteiro com sinal de \(32\) bits: \(i32\)
+        \item Inteiro sem sinal de \(n\) bits: \(u\_n\)
+        \item Inteiro sem sinal de \(32\) bits: \(u32\)
+        \item Booleano de tamanho byte: \(bool\)
+            \\\nota{\(bool \typesim u1\)}
     \end{itemize}
 \end{frame}
 
@@ -117,21 +128,21 @@
 \begin{frame}[fragile]
     \frametitle{Exemplos: \(A \times B\)}
     \begin{itemize}
-        \item \lang{C} \emph{(struct)}:
+        \item \lang{C} \emph{(Struct)}:
             \begin{lstlisting}[language=C]
 struct ProdutoIntDouble {
     int a;
     double b;
 };
             \end{lstlisting}
-        \item \lang{Java} \emph{(class)} (*):
+        \item \lang{Java} \emph{(Class)} (*):
             \begin{lstlisting}[language=Java]
 class ProdutoIntDouble {
     private int a;
     private double b;
 }
             \end{lstlisting}
-        \item \lang{Haskell} \emph{(record)}:
+        \item \lang{Haskell} \emph{(Record)}:
             \begin{lstlisting}[language=Haskell]
 data ProdutoIntDouble = PIntDouble
     { a :: Int
@@ -239,32 +250,160 @@ struct Exemplo5 {
     \end{itemize}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Corolário}
+    \begin{itemize}
+        \item É associativo:
+            \[
+                (A + B) + C \typesim A + (B + C)
+            \]
+        \item É comutativo:
+            \[
+                (A + B) \typesim (B + A)
+            \]
+    \end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]
     \frametitle{Unions}
     Em \lang{C}, temos \emph{Unions}!
-    \begin{lstlisting}[language=C]
-union soma {
+    \vfill
+    \begin{multicols}{2}
+        \begin{lstlisting}[language=C]
+union quase_soma {
     int a;
     float b;
     char c;
 };
+        \end{lstlisting}
+        \columnbreak
+        \nota{Depois que criamos um elemento da \inlcode{union}
+        perdemos a informação de qual caso ele representa!}
+    \end{multicols}
+    \vfill
+    Isso aloca um espaço na memória que pode armazenar
+    um \inlcode{int} ou(-exclusivo)
+    um \inlcode{float} ou(-exclusivo)
+    um \inlcode{char}.
+    \vfill
+    O \emph{sizeof} é o
+    \(\max(sizeof(int), sizeof(float), sizeof(char))\).
+    \\
+    O \emph{alignment} é o
+    \(\max(align(int), align(float), align(char))\).
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Enums}
+    Em \lang{C}, também temos \emph{Enums}!
+    \vfill
+    \begin{lstlisting}[language=C]
+enum casos_soma {
+    CASO_SOMA_A, CASO_SOMA_B, CASO_SOMA_C,
+};
+    \end{lstlisting}
+    \vfill
+    Isso dá ``um nome'' para alguns inteiros de \(0\) até \(2^n-1\)
+    (em \lang{C} \(n := 32\),
+    mas a princípio pode ser qualquer potência de \(2\))
+    \vfill
+    O \emph{sizeof} é o \(sizeof(un)\)
+    (no caso do \lang{C} é \(sizeof(u32)\)).
+    \\
+    O \emph{alignment} é o \(align(un)\)
+    (no caso do \lang{C} é \(align(u32)\)).
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Tagged Unions}
+    Agora podemos juntar as duas!
+    \vfill
+    \begin{lstlisting}[language=C]
+enum casos_soma {
+    CASO_SOMA_A, CASO_SOMA_B, CASO_SOMA_C,
+};
+
+union quase_soma {
+    int a; float b; char c;
+};
+
+struct soma {
+    union quase_soma val;
+    enum casos_soma tag;
+};
     \end{lstlisting}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Enums}
-\end{frame}
-
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{Tagged Unions}
+    Equivalente!
+    \vfill
+    \begin{lstlisting}[language=C]
+struct soma {
+    union quase_soma {
+        int a; float b; char c;
+    } val;
+
+    enum casos_soma {
+        CASO_SOMA_A, CASO_SOMA_B,
+        CASO_SOMA_C,
+    } tag;
+};
+    \end{lstlisting}
 \end{frame}
 
 \begin{frame}
     \frametitle{Matemática de Tagged Union}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{Exemplos: \(A + B\)}
+    \begin{itemize}
+        \item \lang{Zig} \emph{(Tagged Union)}:
+            \begin{lstlisting}[language=C]
+const UnionIntDouble = union(enum) {
+    caso_int: u32,
+    caso_double: f64,
+};
+            \end{lstlisting}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplos: \(A + B\)}
+    \begin{itemize}
+        \item \lang{Java} \emph{(Dynamic Dispatch)} (*):
+            \begin{lstlisting}[language=Java]
+abstract class UnionBase {}
+
+class UnionInt extends UnionBase {
+    private int val;
+}
+
+class UnionDouble extends UnionBase {
+    private double val;
+}
+            \end{lstlisting}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplos: \(A + B\)}
+    \begin{itemize}
+        \item \lang{Rust} \emph{(Enum)}:
+            \begin{lstlisting}[language=C]
+enum UnionIntDouble {
+    CasoInt(i32),
+    CasoDouble(f64)
+}
+            \end{lstlisting}
+        \item \lang{Haskell} \emph{(Algebraic Data Type)}:
+            \begin{lstlisting}[language=Haskell]
+data UnionIntDouble
+    = CasoInt Int
+    | CasoDouble Double
+            \end{lstlisting}
+    \end{itemize}
 \end{frame}
 
 \subsection{Exponencial}
