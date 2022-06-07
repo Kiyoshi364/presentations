@@ -423,7 +423,7 @@ data UnionIntDouble
             \vfill
         \item Destrutor
             \[
-                eval : B^A \to (A \to B)
+                eval : B^A \to A \to B
             \]
             \vfill
         \item Valores
@@ -434,18 +434,50 @@ data UnionIntDouble
 \end{frame}
 
 \begin{frame}
-    \frametitle{Exemplos: \(B^A\)}
+    \frametitle{Exponencial \(B^A\)}
+    Opções de implementação:
+    \begin{itemize}
+        \item Look-up Table (Arrays)
+            \begin{itemize}
+                \item Memória:
+                    \(sizeof(B) \times \typetam(A)\)
+                    \par
+                    \nota{Precisa converter \(A\) para inteiro}
+            \end{itemize}
+        \vfill
+        \pause
+        \item Ponteiros para função:
+            \begin{itemize}
+                \item Memória:
+                    \emph{código} (estático)
+                    + \emph{ponteiro} (cada instância)
+            \end{itemize}
+        \vfill
+        \pause
+        \item (Código de uma) Máquina Virtual
+        \vfill
+        \pause
+        \item ??? (Céu é o limite)
+    \end{itemize}
 \end{frame}
 
-\subsection{Tipos Algébricos}
-\begin{frame}[fragile]
-    \frametitle{Tipos Algébricos}
-    \begin{lstlisting}[language=Haskell]
-data TipoAlg
-  = Caso1 A B C
-  | Caso2
-  | Caso3 F
-    \end{lstlisting}
+\begin{frame}
+    \frametitle{Por que \(B^A\)?}
+    Um grande motivo é \emph{Programação Funcional}:
+    \begin{itemize}
+        \item Receber/Passar uma função
+        \item Closures
+        \item Aplicação Parcial
+        \item Callbacks
+    \end{itemize}
+    \vfill
+    \pause
+    Também serve como base para
+    \emph{Virtual Tables} \emph{(Vtables)}:
+    \begin{itemize}
+        \item Intefaces
+        \item Dynamic Dispatch
+    \end{itemize}
 \end{frame}
 
 \section{Tipos - Casos Base}
