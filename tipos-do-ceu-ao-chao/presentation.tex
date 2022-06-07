@@ -98,12 +98,14 @@
             \[
                 A \to B \to A \times B
             \]
+            \vfill
         \item Destrutor (projeções)
             \[
                 \pi_A : A \times B \to A
             \] \[
                 \pi_B : A \times B \to B
             \]
+            \vfill
         \item Valores
             \[
                 \typetam(A \times B) = \typetam(A) \times \typetam(B)
@@ -118,6 +120,7 @@
             \[
                 (A \times B) \times C \typesim A \times (B \times C)
             \]
+            \vfill
         \item É comutativo:
             \[
                 (A \times B) \typesim (B \times A)
@@ -238,11 +241,13 @@ struct Exemplo5 {
             \] \[
                 right : B \to A + B
             \]
+            \vfill
         \item (Família de) Destrutor(es)
             \[
                 \forall x \d
                 A + B \to (A \to x) \to (B \to x) \to x
             \]
+            \vfill
         \item Valores
             \[
                 \typetam(A + B) = \typetam(A) + \typetam(B)
@@ -257,6 +262,7 @@ struct Exemplo5 {
             \[
                 (A + B) + C \typesim A + (B + C)
             \]
+            \vfill
         \item É comutativo:
             \[
                 (A + B) \typesim (B + A)
@@ -414,10 +420,12 @@ data UnionIntDouble
             \[
                 (A \to B) \to B^A
             \]
+            \vfill
         \item Destrutor
             \[
                 eval : B^A \to (A \to B)
             \]
+            \vfill
         \item Valores
             \[
                 \typetam\left(B^A\right) = \typetam(B)^{\typetam(A)}
