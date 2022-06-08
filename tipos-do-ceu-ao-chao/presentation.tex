@@ -334,7 +334,7 @@ union quase_soma {
 };
 
 struct soma {
-    union quase_soma val;
+    union quase_soma as;
     enum casos_soma tag;
 };
     \end{lstlisting}
@@ -348,7 +348,7 @@ struct soma {
 struct soma {
     union quase_soma {
         int a; float b; char c;
-    } val;
+    } as;
 
     enum casos_soma {
         CASO_SOMA_A, CASO_SOMA_B,
