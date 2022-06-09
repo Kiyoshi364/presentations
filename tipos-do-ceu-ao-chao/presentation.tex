@@ -87,7 +87,17 @@
 
 \section{Tipos - Caso Recursivo}
 \begin{frame}
-    \frametitle{Placeholder}
+    \frametitle{Caso Recusivo}
+    O ``caso recursivo'' é para criar \emph{tipos novos}.
+    \vfill
+    Para \emph{usar} os tipos novos,
+    precisamos de formas (funções) para:
+    \begin{itemize}
+        \item definir/criar novos elementos
+            (\emph{construtores})
+        \item transformar os elementos já definidos:
+            (\emph{destrutores})
+    \end{itemize}
 \end{frame}
 
 \subsection{Produto}
@@ -244,8 +254,9 @@ struct Exemplo5 {
             \vfill
         \item (Família de) Destrutor(es)
             \[
-                \forall x \d
-                A + B \to (A \to x) \to (B \to x) \to x
+                \forall X \d
+            \] \[
+                A + B \to (A \to X) \to (B \to X) \to X
             \]
             \vfill
         \item Valores
@@ -403,6 +414,7 @@ enum UnionIntDouble {
     CasoDouble(f64)
 }
             \end{lstlisting}
+            \vfill
         \item \lang{Haskell} \emph{(Algebraic Data Type)}:
             \begin{lstlisting}[language=Haskell]
 data UnionIntDouble
@@ -429,6 +441,21 @@ data UnionIntDouble
         \item Valores
             \[
                 \typetam\left(B^A\right) = \typetam(B)^{\typetam(A)}
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Corolário}
+    \begin{itemize}
+        \item \textbf{Não} é associativo:
+            \[
+                \left(A^B\right)^C \not\typesim A^{\left(B^C\right)}
+            \]
+            \vfill
+        \item \textbf{NÃO} é comutativo:
+            \[
+                \left(A^B\right) \not\typesim \left(B^A\right)
             \]
     \end{itemize}
 \end{frame}
