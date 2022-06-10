@@ -389,7 +389,7 @@ const UnionIntDouble = union(enum) {
 \begin{frame}[fragile]
     \frametitle{Exemplos: \(A + B\)}
     \begin{itemize}
-        \item \lang{Java} \emph{(Dynamic Dispatch)} (*):
+        \item \lang{Java} \emph{(Inheritance/Dynamic Dispatch)} (*):
             \begin{lstlisting}[language=Java]
 abstract class UnionBase {}
 
@@ -399,6 +399,31 @@ class UnionInt extends UnionBase {
 
 class UnionDouble extends UnionBase {
     private double val;
+}
+            \end{lstlisting}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplo Bônus: \(A + B\)}
+    \begin{itemize}
+        \item Algo parecido em \lang{C}
+            \emph{(``Struct Inheritance'')}:
+            \begin{lstlisting}[language=C]
+enum UnionTag { CASO_INT, CASO_DOUBLE };
+
+struct UnionHeader {
+    enum UnionTag tag;
+}
+
+struct UnionInt {
+    struct UnionHeader header;
+    int val;
+}
+
+struct UnionDouble {
+    struct UnionHeader header;
+    double val;
 }
             \end{lstlisting}
     \end{itemize}
