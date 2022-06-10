@@ -534,17 +534,98 @@ data UnionIntDouble
 
 \section{Tipos - Casos Base}
 \begin{frame}
-    \frametitle{Placeholder}
-\end{frame}
-
-\subsection{Unity}
-\begin{frame}
-    \frametitle{\(()\)}
+    \frametitle{Caso Base}
 \end{frame}
 
 \subsection{Void}
 \begin{frame}
     \frametitle{\(Void\)}
+    \pause
+    \begin{itemize}
+        \item Construtor
+            \[
+                \text{(não tem)}
+            \]
+            \vfill
+        \item Destrutor
+            \[
+                \forall X \d
+            \] \[
+                absurd : Void \to X
+            \]
+            \vfill
+        \item Valores
+            \[
+                0
+            \]
+    \end{itemize}
+\end{frame}
+
+\subsection{Unity}
+\begin{frame}
+    \frametitle{Unity -- \(()\)}
+    \begin{itemize}
+        \item Construtor
+            \[
+                () : ()
+            \]
+            \vfill
+        \item Destrutor
+            \[
+                \text{(não tem)}
+            \]
+            \vfill
+        \item Valores
+            \[
+                1
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{\inlcode{void} \(== ()\)}
+    Se ``\inlcode{void} \(== ()\)'',
+    por que eu não posso fazer isso:
+    \vfill
+    \begin{lstlisting}[language=C]
+void func(void) {}
+
+int main() {
+    void v;
+    v = func();
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{\inlcode{void} \(== ()\)}
+    \begin{lstlisting}
+> gcc a.c
+a.c: In function 'main':
+a.c:4:10: error: variable or field
+'v' declared void
+    4 |     void v;
+      |          ^
+a.c:5:7: error: void value not ignored
+as it ought to be
+    5 |     v = func();
+      |
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{\inlcode{void} \(== ()\)}
+    Em \lang{Zig}, pode!
+    \vfill
+    \begin{lstlisting}[language=C]
+fn func() void {}
+
+pub fn main() u8 {
+    var v: void = undefined;
+    v = func();
+    return 0;
+}
+    \end{lstlisting}
 \end{frame}
 
 \subsection{Bool}
