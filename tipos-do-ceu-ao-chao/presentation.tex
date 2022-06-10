@@ -98,6 +98,11 @@
         \item transformar os elementos já definidos:
             (\emph{destrutores})
     \end{itemize}
+    \vfill
+    \nota{Em lógica, os \emph{construtores}
+        são chamados de \emph{regras de introdução} e
+        os \emph{destrutores}
+        de \emph{regras de eliminação}}
 \end{frame}
 
 \subsection{Produto}
@@ -790,22 +795,22 @@ const CharStar = [*:0]u8;
     \vfill
     Útil para dar tipos para: \texttt{arrays}, \emph{provas}, \dots
     \vfill
-    \begin{columns}
-        \column{0.5\textwidth}
-            Linguagens de programação:
-            \begin{itemize}
-                \item Agda
-                \item C++ [Template]
-                \item Idris
-            \end{itemize}
-        \column{0.5\textwidth}
-            Assistentes de Prova:
-            \begin{itemize}
-                \item ALF
-                \item Coq
-                \item Lean
-            \end{itemize}
-    \end{columns}
+    \begin{multicols}{2}
+        Linguagens de programação:
+        \begin{itemize}
+            \item Agda
+            \item C++ [Template]
+            \item Idris
+            \item Zig [Comptime, First Class Types]
+        \end{itemize}
+        \columnbreak
+        Assistentes de Prova:
+        \begin{itemize}
+            \item ALF
+            \item Coq
+            \item Lean
+        \end{itemize}
+    \end{multicols}
     \vfill
     Mais exemplos:
     \url{en.wikipedia.org/wiki/Category:Dependently_typed_languages}
