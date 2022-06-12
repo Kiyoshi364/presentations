@@ -42,6 +42,18 @@
     \end{tabular}%
 }
 
+\newcommand{\tabelasizealignTwo}{%
+    \begin{tabular}{|c|c|c||c|c|c|}%
+        \hline%
+        Tipo & sizeof & alignment &%
+        Tipo & sizeof & alignment \\\hline%
+        \hline%
+        bool & 1      & 1         &%
+        u32  & 4      & 4         \\\hline&&&%
+        u64  & 8      & 8         \\\hline%
+    \end{tabular}%
+}
+
 \title{Tipos do Céu ao Chão}
 \author{Hashimoto}
 \date{17 de Junho de 2022}
@@ -376,6 +388,46 @@ struct soma {
 
 \begin{frame}
     \frametitle{Matemática de Tagged Union}
+    No fim, uma \inlcode{Tagged Union} é só
+    uma \inlcode{struct} de
+    um \inlcode{enum} e uma \inlcode{union}.
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplos: Matemática de Tagged Union}
+    \begin{lstlisting}[language=C]
+struct Exemplo1 {
+    union { u32 a; u64 b; } as;
+    enum { CASO_U32, CASO_U64, } tag; };
+    \end{lstlisting}
+    \begin{lstlisting}[language=C]
+struct Exemplo2 {
+    union { u32 a; u64 b; bool c; } as;
+    enum { C_U32, C_U64, C_BOOL, } tag; };
+    \end{lstlisting}
+    \begin{lstlisting}[language=C]
+struct Exemplo3 {
+    union { u32 a; u32 b; u32 c; u32 d;
+        u32 e; u32 f; u32 g; u32 h; } as;
+    enum { A, B, C, D, E, F, G, H, } tag; };
+    \end{lstlisting}
+    \tabelasizealignTwo{}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Respostas: Matemática de Tagged Union}
+    \begin{center} \begin{tabular}{|c|c|c|}
+        \hline%
+        Tipo      & sizeof & alignment \\\hline
+        \hline
+        bool      & 1      & 1         \\\hline
+        u32       & 4      & 4         \\\hline
+        u64       & 8      & 8         \\\hline
+        \hline
+        Exemplo1  & 16     & 8         \\\hline
+        Exemplo2  & 16     & 8         \\\hline
+        Exemplo3  & 8      & 4         \\\hline
+    \end{tabular} \end{center}
 \end{frame}
 
 \begin{frame}[fragile]
