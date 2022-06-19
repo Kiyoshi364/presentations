@@ -941,6 +941,39 @@ const CharStar = [*:0]u8;
 \end{frame}
 
 \begin{frame}
+    \frametitle{Row/Variant Polymorphism}
+    A ideia é: se eu tenho uma função \inlcode{f}
+    que recebe uma \emph{struct genérica},
+    mas só acessa o campo \emph{.nome};
+    deveria ser possível passar as duas structs:
+    \inlcode{struct struct1 \{ nome : Str, num : Int \}},
+    \inlcode{struct struct2 \{ nome : Str, flag : Bool \}}.
+    \vfill
+    Isso lembra \emph{duck typing}
+    \textit{(``If it walks like a duck,
+    and it quacks like a duck,
+    then it must be a duck!'')}
+    \vfill
+    \nota{Row Polymorphism e Variant Polymorphism são duas
+    coisas diferentes, mas duais.}
+    \vfill
+    Linguagens de programação:
+    \begin{itemize}
+        \item Roc (em desenvolvimento: \url{roc-lang.org/})
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Mais Tipos!}
+    Tipos ``que existem'' mas ``que eu não sei muito bem o que são'':
+    \begin{itemize}
+        \item Variant/Contravariant/Invariant Types
+        \item Subtypes/Supertypes
+        \item \dots
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{Placeholder}
 \end{frame}
 
