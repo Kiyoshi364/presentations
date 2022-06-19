@@ -591,11 +591,6 @@ data UnionIntDouble
     \end{itemize}
 \end{frame}
 
-\subsection{Tipos Algébricos}
-\begin{frame}
-    \frametitle{Tipos Algébricos}
-\end{frame}
-
 \section{Tipos - Casos Base}
 \begin{frame}
     \frametitle{Caso Base}
@@ -782,6 +777,29 @@ pub fn main() u8 {
     a gente deva usar essas representações!
     O hardware sabe trabalhar muito bem com \inlcode{I32},
     então faz sentido ele ser um tipo primitivo.
+\end{frame}
+
+\subsection{Tipos Algébricos}
+\begin{frame}[fragile]
+    \frametitle{Tipos Algébricos}
+    Deveria estar em \textbf{Tipos - Caso Recursivo},
+    mas se encaixa melhor aqui!
+    \vfill
+    \emph{Tipos Algébricos}
+    é uma forma para representar somas e produtos:
+    \vfill
+    \begin{lstlisting}[language=Haskell]
+Bool = False | True
+    \end{lstlisting}
+    \vfill
+    \begin{lstlisting}[language=Haskell]
+I32_1 = I32_1 Bool Bool Bool ... Bool
+    \end{lstlisting}
+    \vfill
+    \begin{lstlisting}[language=Haskell]
+I32_2 = Int32Min | ... | MenosUm
+      | Zero | Um | ... | Int32Max
+    \end{lstlisting}
 \end{frame}
 
 \section{Polimorfismo Paramétrico}
