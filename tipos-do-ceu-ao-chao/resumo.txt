@@ -1,0 +1,5 @@
+Essa é uma apresentação que mostra um pouquinho de
+como os tipos funcionam em matemática,
+e como eles aparecem (ou não) no seu executável.
+Sabendo ou não muito sobre programação e/ou matemática,
+espero que saia com algum conhecimento novo!
