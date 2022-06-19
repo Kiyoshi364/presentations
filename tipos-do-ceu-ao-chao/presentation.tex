@@ -165,7 +165,7 @@ struct ProdutoIntDouble {
     double b;
 };
             \end{lstlisting}
-        \item \lang{Java} \emph{(Class)} (*):
+        \item \lang{Java} \emph{(Class/Object)} (*):
             \begin{lstlisting}[language=Java]
 class ProdutoIntDouble {
     private int a;
@@ -280,6 +280,8 @@ struct Exemplo5 {
             \[
                 \typetam(A + B) = \typetam(A) + \typetam(B)
             \]
+            \vfill
+        \item Outros nomes: Coproduto, Variante
     \end{itemize}
 \end{frame}
 
@@ -923,7 +925,8 @@ const CharStar = [*:0]u8;
 \begin{frame}
     \frametitle{Efeitos Algébricos (\emph{*novo*})}
     São \texttt{exceptions} (\texttt{exceções}),
-    porém mais \emph{gerais}.
+    porém mais \emph{gerais}
+    (lembram um pouquinho \texttt{interfaces}).
     \vfill
     Os \texttt{handlers} (algo tipo os blocos \texttt{catch})
     podem continuar a função que gerou a exceção e
