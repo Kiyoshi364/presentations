@@ -599,30 +599,43 @@ data UnionIntDouble
 \section{Tipos - Casos Base}
 \begin{frame}
     \frametitle{Caso Base}
+    \begin{itemize}
+        \item Aqui ficam os \emph{tipos primitivos/atômicos}
+            \vfill
+        \item Não dá para quebrar mais que isso!
+            \vfill
+        \item Também têm \emph{contrutores} e \emph{destrutores}
+    \end{itemize}
 \end{frame}
 
 \subsection{Void}
 \begin{frame}
     \frametitle{\(Void\)}
-    \pause
-    \begin{itemize}
-        \item Construtor
-            \[
-                \text{(não tem)}
-            \]
-            \vfill
-        \item Destrutor
-            \[
-                \forall X \d
-            \] \[
-                absurd : Void \to X
-            \]
-            \vfill
-        \item Valores
-            \[
-                0
-            \]
-    \end{itemize}
+    \only<1>{
+        Pausa Dramática!
+        \centering
+    } \only<2-> {
+        \begin{itemize}
+            \item Construtor
+                \[
+                    \text{(não tem)}
+                \]
+                \vfill
+            \item Destrutor
+                \[
+                    \forall X \d
+                \] \[
+                    absurd : Void \to X
+                \]
+                \vfill
+            \item Valores
+                \[
+                    0
+                \]
+                \vfill
+            \item \nota{Em lógica, é o \(\bot\) \emph{(false)}}
+        \end{itemize}
+    }
 \end{frame}
 
 \subsection{Unity}
@@ -643,6 +656,8 @@ data UnionIntDouble
             \[
                 1
             \]
+            \vfill
+        \item \nota{Em lógica, é o \(\top\) \emph{(true)}}
     \end{itemize}
 \end{frame}
 
@@ -695,11 +710,78 @@ pub fn main() u8 {
 \subsection{Bool}
 \begin{frame}
     \frametitle{Bool}
+    \begin{itemize}
+        \item Construtor
+            \[
+                false : Bool
+            \] \[
+                true : Bool
+            \]
+            \vfill
+        \item (Família de) Destrutor(es)
+            \[
+                \forall X \d
+            \] \[
+                Bool \to X \to X \to X
+            \]
+            \vfill
+        \item Valores
+            \[
+                2
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bool \(\typesim () + ()\)}
+    Se a gente usar a Soma \(() + ()\):
+    \vfill
+    \begin{itemize}
+        \item Construtores
+            \[
+                left : () \to () + ()
+            \] \[
+                right : () \to () + ()
+            \]
+            \vfill
+        \item (Família de) Destrutor(es)
+            \[
+                \forall X \d
+            \] \[
+                () + () \to (() \to X) \to (() \to X) \to X
+            \]
+            \vfill
+        \item Valores
+            \[
+                \typetam(() + ()) = \typetam(()) + \typetam(())
+                = 2
+            \]
+            \vfill
+        \item Só chamar \(left\) de \inlcode{false} e
+            \(right\) de \inlcode{true} (ou o oposto)!
+    \end{itemize}
+    \vfill
+    \nota{Acredita em mim que \(A \typesim () \to A\)}
 \end{frame}
 
 \subsection{Int}
 \begin{frame}
     \frametitle{I32}
+    Vocês lembram da representação binária de um \inlcode{I32}?
+    \vfill
+    \begin{align*}
+        I32 &\typesim Bool \times Bool \times \cdots \times Bool \\
+        &\typesim (()+()) \times \cdots \times (()+()) \\
+        &\typesim () + () + () + \cdots + () + () \\
+    \end{align*}
+    \vfill
+    Então dá para representar \emph{muita coisa} usando
+    só \emph{Produto, Soma e Unity}.
+    \vfill
+    Mas isso não quer dizer que
+    a gente deva usar essas representações!
+    O hardware sabe trabalhar muito bem com \inlcode{I32},
+    então faz sentido ele ser um tipo primitivo.
 \end{frame}
 
 \section{Polimorfismo Paramétrico}
