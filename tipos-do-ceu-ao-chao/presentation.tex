@@ -901,8 +901,21 @@ I32_2 = Int32Min | ... | MenosUm
 \end{frame}
 
 \subsection{List}
-\begin{frame}
-    \frametitle{[a]}
+\begin{frame}[fragile]
+    \frametitle{List a}
+    \begin{lstlisting}[language=Haskell]
+data List a
+    = Nil
+    | Cons a (List a)
+    \end{lstlisting}
+    \vfill
+    Destrutor
+    \begin{lstlisting}[language=Haskell]
+list :: List a -> b -> (a -> List a -> b)
+    -> b
+list  Nil        _ b = b
+list (Cons a as) f b = f a as
+    \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
