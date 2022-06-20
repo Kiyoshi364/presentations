@@ -845,6 +845,51 @@ I32_2 = Int32Min | ... | MenosUm
     \end{itemize}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Polimorfismo Paramétrico}
+    Tipos  que guardam/organizam ``coisas''
+    (estruturas de dados) geralmente usam
+    muito bem esse tipo de polimorfismo.
+    Exemplos: Lista, Fila, Árvore, Mapa, \dots
+    \vfill
+    Notação para tipos paramétricos:
+    \[
+        [] : \forall x \d List \; x
+    \]
+    \vfill
+    Notação para essas funções paramétricos:
+    \[
+        id : \forall x \d x \to x
+    \]
+    \vfill
+    \nota{Geralmente usam letra minúscula para variáveis de tipo}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Simplificando Destrutores}
+    Esse polimorfismo simplifica alguns destrutores,
+    onde tinha ``família de destrutores''
+    agora é só uma função genérica:
+    \begin{itemize}
+        \item \(A \times B\)
+            \[
+                \forall x \d A \times B \to (A \to B \to x) \to x
+            \]
+        \item \(A + B\)
+            \[
+                \forall x \d A + B \to (A \to x) \to (B \to x) \to x
+            \]
+        \item \(Void\)
+            \[
+                absurd: \forall x \d Void \to x
+            \]
+        \item \(Bool\)
+            \[
+                \forall x \d Bool \to x \to x \to x
+            \]
+    \end{itemize}
+\end{frame}
+
 \subsection{Maybe}
 \begin{frame}
     \frametitle{Maybe a}
