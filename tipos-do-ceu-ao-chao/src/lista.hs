@@ -10,6 +10,9 @@ list (Cons a as) _ f = f a as
 psi :: (a1 -> b1 -> c) -> (a -> a1) -> (b -> b1) -> a -> b -> c
 psi bin f g a b = bin (f a) (g b)
 
+(...) :: (b -> c) -> (a1 -> a2 -> b) -> a1 -> a2 -> c
+(...) = (.).(.)
+
 instance Semigroup (List a) where
     (<>) la lb = list la lb $ psi Cons id (<> lb)
 
@@ -18,6 +21,20 @@ instance Monoid (List a) where
 
 instance Functor List where
     fmap f as = list as Nil $ psi Cons f (fmap f)
+
+instance Applicative List where
+     pure a = Cons a Nil
+     -- liftA2 bin la lb = list la Nil
+     --     $ psi (<>) (\ a -> fmap (bin a) lb)
+     --        (\ as -> liftA2 bin as lb)
+     (<*>) fab as = list fab Nil
+        $ psi (<>) (`fmap` as) (<*> as)
+
+instance Monad List where
+    (>>=) =  join ... flip fmap
+
+join :: List (List a) -> List a
+join = foldr (<>) Nil
 
 instance Foldable List where
     -- foldMap f as = list as mempty $ psi mappend f (foldMap f)
