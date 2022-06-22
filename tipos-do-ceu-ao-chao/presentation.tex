@@ -891,13 +891,50 @@ I32_2 = Int32Min | ... | MenosUm
 \end{frame}
 
 \subsection{Maybe}
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{Maybe a}
+    Outros nomes:
+    \begin{itemize}
+        \item Option
+        \item Optional
+    \end{itemize}
+    \vfill
+    \begin{lstlisting}[language=Haskell]
+data Maybe a
+    = None
+    | Some a
+    \end{lstlisting}
+    \vfill
+    Destrutor
+    \begin{lstlisting}[language=Haskell]
+maybe :: Maybe a -> b -> (a -> b) -> b
+maybe  None    b _ = b
+maybe (Some a) _ f = f a
+    \end{lstlisting}
 \end{frame}
 
 \subsection{Either}
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{Either a b}
+    Outros nomes:
+    \begin{itemize}
+        \item Result
+        \item Error Union
+    \end{itemize}
+    \vfill
+    \begin{lstlisting}[language=Haskell]
+data Either a b
+    = Left a
+    | Right b
+    \end{lstlisting}
+    \vfill
+    Destrutor
+    \begin{lstlisting}[language=Haskell]
+either :: Either a b -> (a -> c)
+    -> (b -> c) -> c
+either (Left  a) f _ = f a
+either (Right b) _ g = g b
+    \end{lstlisting}
 \end{frame}
 
 \subsection{List}
@@ -913,8 +950,8 @@ data List a
     \begin{lstlisting}[language=Haskell]
 list :: List a -> b -> (a -> List a -> b)
     -> b
-list  Nil        _ b = b
-list (Cons a as) f b = f a as
+list  Nil        b _ = b
+list (Cons a as) _ f = f a as
     \end{lstlisting}
 \end{frame}
 
