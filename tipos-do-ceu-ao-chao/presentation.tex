@@ -1021,6 +1021,215 @@ const CharStar = [*:0]u8;
 
 \begin{frame}
     \frametitle{Implementação (Polimorfismo Paramétrico)}
+    \begin{itemize}
+        \item Especialização/\emph{inline}:
+            \begin{itemize}
+                \item Gerar várias funções (\emph{name mangling})
+                \item Tudo se resolve estaticamente
+                \item Tende a gerar binários maiores
+                    (uma função para cada tipo)
+            \end{itemize}
+            \vfill
+        \item \inlcode{void *} e \emph{meta-dados}
+            \begin{itemize}
+                \item Gerar só uma função
+                \item Tudo se resolve dinamicamente
+                \item Tende a gerar funções mais lentas
+                    (tem que olhar os meta-dados)
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplo: Especialização \inlcode{i32}}
+    \begin{multicols}{2}
+        \begin{lstlisting}[language=C]
+struct<T> Pilha {
+    usize len;
+    usize size;
+    [*]T items;
+}
+
+Pilha<T> new<T>() {
+    return
+        Pilha<T> {
+    .len = 0,
+    .size = 0,
+    .items = malloc(
+        0*sizeof(T)
+        ), };
+}
+        \end{lstlisting}
+        \columnbreak
+        \begin{lstlisting}[language=C]
+struct Pilha_i32 {
+    usize len;
+    usize size;
+    [*]i32 items;
+}
+
+Pilha_i32 new_i32() {
+    return
+        Pilha_i32 {
+    .len = 0,
+    .size = 0,
+    .items = malloc(
+        0*sizeof(i32)
+        ), };
+}
+        \end{lstlisting}
+    \end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplo: Especialização \inlcode{i32}}
+    \begin{lstlisting}[language=C]
+void push<T>(Pilha<T> *p, T item) {
+    if ( p.size + 1 >= p.len ) {
+        p.len *= 2;
+        realloc(&p.items, p.len*sizeof(T));
+    }
+    p.items[p.size] = item;
+    p.size += 1;
+}
+    \end{lstlisting}
+    \vfill
+    \begin{lstlisting}[language=C]
+void push_i32(Pilha_i32 *p, i32 item) {
+    if ( p.size + 1 >= p.len ) {
+        p.len *= 2;
+        realloc(&p.items, p.len*sizeof i32);
+    }
+    p.items[p.size] = item;
+    p.size += 1;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplo: Especialização \inlcode{i32}}
+    \begin{lstlisting}[language=C]
+?T pop<T>(Pilha<T> *p) {
+    if ( p.size > 0 ) {
+        p.size -= 1;
+        return p.items[p.size];
+    } else return null;
+}
+    \end{lstlisting}
+    \vfill
+    \begin{lstlisting}[language=C]
+?i32 pop_i32(Pilha_i32 *p) {
+    if ( p.size > 0 ) {
+        p.size -= 1;
+        return p.items[p.size];
+    } else return null;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplo: Generalização}
+    \begin{multicols}{2}
+        \begin{lstlisting}[language=C]
+struct<T> Pilha {
+    usize len;
+    usize size;
+    [*]T items;
+}
+
+Pilha<T> new<T>() {
+    return Pilha<T> {
+    .len = 0,
+    .size = 0,
+    .items = malloc(
+        0*sizeof(T)
+        ), };
+}
+        \end{lstlisting}
+        \columnbreak
+        \begin{lstlisting}[language=C]
+struct Pilha {
+    usize len, size;
+    Info info;
+    [*]*void items;
+}
+
+Pilha new(Info i) {
+    return Pilha {
+    .len =0, .size=0,
+    .info = i,
+    .items = malloc(
+    0*sizeof(*void)
+        ), };
+}
+        \end{lstlisting}
+    \end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplo: Generalização}
+    \begin{lstlisting}[language=C]
+void push<T>(Pilha<T> *p, T item) {
+    if ( p.size + 1 >= p.len ) {
+        p.len *= 2;
+        realloc(&p.items, p.len*sizeof(T));
+    } p.items[p.size] = item;
+    p.size += 1;
+}
+    \end{lstlisting}
+    \vfill
+    \begin{lstlisting}[language=C]
+void push(Pilha *p, void *item) {
+    if ( p.size + 1 >= p.len ) {
+        p.len *= 2;
+        realloc(&p.items,
+            p.len*sizeof(*void));
+    }
+    p.items[p.size] = item;
+    p.size += 1;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplo: Generalização}
+    \begin{lstlisting}[language=C]
+?T pop<T>(Pilha<T> *p) {
+    if ( p.size > 0 ) {
+        p.size -= 1;
+        return p.items[p.size];
+    } else return null;
+}
+    \end{lstlisting}
+    \vfill
+    \begin{lstlisting}[language=C]
+?*void pop(Pilha *p) {
+    if ( p.size > 0 ) {
+        p.size -= 1;
+        return p.items[p.size];
+    } else return null;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Exemplo: Generalização (coisas extras)}
+    \begin{lstlisting}[language=C]
+struct Info {
+    usize size;
+    u8 align;
+    ...
+};
+
+struct InfoPack {
+    Info info;
+    *void ptr;
+};
+
+InfoPack from_i32_to_Info(i32 val) { ... }
+
+i32 from_Info_to_i32(void *ptr) { ... }
+    \end{lstlisting}
 \end{frame}
 
 \section{Classes de Tipos}
