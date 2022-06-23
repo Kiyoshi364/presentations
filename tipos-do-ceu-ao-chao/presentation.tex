@@ -966,7 +966,7 @@ list (Cons a as) _ f = f a as
 \begin{frame}[fragile]
     \frametitle{int *p = \&i;}
     \begin{lstlisting}[language=Haskell]
-Pointer a = Null
+data Pointer a = Null
     | Estrela  a
     | Colchete [a]
     \end{lstlisting}
