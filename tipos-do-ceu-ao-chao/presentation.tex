@@ -1254,6 +1254,23 @@ i32 from_Info_to_i32(void *ptr) { ... }
     \url{youtu.be/E-2y1qHQvTg}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Classes de Tipos}
+    \begin{itemize}
+        \item Agrupa tipos com uma mesma propriedade(s)
+            \vfill
+        \item Define um conjunto de operações
+            com alguma semântica
+            (que não dependem de implementação)
+            \vfill
+        \item É um contrato!
+            \vfill
+        \item Em Orientação a Objeto:
+            uma forma de ``injetar depêndencia''
+            (\emph{dependency injection})
+    \end{itemize}
+\end{frame}
+
 \subsection{Monoid}
 \begin{frame}
     \frametitle{Monoid}
@@ -1262,6 +1279,50 @@ i32 from_Info_to_i32(void *ptr) { ... }
 \subsection{Funtores}
 \begin{frame}
     \frametitle{Funtores}
+\end{frame}
+
+\subsection{Collection}
+\begin{frame}[fragile]
+    \frametitle{Collection (Java 8)}
+    \begin{lstlisting}[language=Java]
+interface Collection<E> extends Iterable<E>
+{   boolean add(E e);
+    boolean addAll(Collection
+        <? extends E> c);
+    void clear();
+    boolean contains(Object o);
+    boolean containsAll(Collection<?> c);
+    boolean equals(Object o);
+    int hashCode();
+    boolean isEmpty();
+    Iterator<E> iterator();
+    default Stream<E> parallelStream();
+    boolean remove(Object o);
+    ...
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Collection (Java 8) - Part 2}
+    \begin{lstlisting}[language=Java]
+interface Collection<E> extends Iterable<E>
+{   ...
+    boolean removeAll(Collection
+        <? extends E> c);
+    default boolean removeIf(Predicate
+        <? super E> filter);
+    boolean retainAll(Collection
+        <? extends E> c);
+    int size();
+    default Spliterator<E> spliterator();
+    default Stream<E> stream();
+    Object[] toArray();
+    <T> T[] toArray(T[] a);
+}
+    \end{lstlisting}
+    \vfill
+    \url{docs.oracle.com/javase/8/docs/api/java/util/Collection.html}
 \end{frame}
 
 \subsection{Monad}
