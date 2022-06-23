@@ -1286,13 +1286,53 @@ i32 from_Info_to_i32(void *ptr) { ... }
 \end{frame}
 
 \subsection{Monoid}
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{Monoid}
+    \begin{lstlisting}[language=Haskell]
+class Semigroup a where
+    (<>) :: a -> a -> a
+
+class Semigroup a => Monoid a where
+    mempty :: a -> a -> a
+    mconcat :: [a] -> a
+    mconcat = foldr (<>) mempty
+    \end{lstlisting}
+    \vfill
+    \begin{itemize}
+        \item Associatividade (Semigroup):
+            \begin{lstlisting}[language=Haskell]
+(x <> y) <> z == x <> (y <> z)
+            \end{lstlisting}
+            \vfill
+        \item Identidades:
+            \begin{lstlisting}[language=Haskell]
+x <> mempty == x
+mempty <> x == x
+            \end{lstlisting}
+    \end{itemize}
 \end{frame}
 
-\subsection{Funtores}
-\begin{frame}
-    \frametitle{Funtores}
+\subsection{Functor}
+\begin{frame}[fragile]
+    \frametitle{Functor}
+    \begin{lstlisting}[language=Haskell]
+class Functor a where
+    fmap :: (a -> b) -> f a -> f b
+    (<$) :: a -> f b -> f a
+    (<$) = fmap . const
+    \end{lstlisting}
+    \vfill
+    \begin{itemize}
+        \item Identidade:
+            \begin{lstlisting}[language=Haskell]
+fmap id == id
+            \end{lstlisting}
+            \vfill
+        \item Composição:
+            \begin{lstlisting}[language=Haskell]
+fmap (f . g) == fmap f . fmap g
+            \end{lstlisting}
+    \end{itemize}
 \end{frame}
 
 \subsection{Collection}
