@@ -873,19 +873,28 @@ I32_2 = Int32Min | ... | MenosUm
             \[
                 \forall x \d A \times B \to (A \to B \to x) \to x
             \]
+            \vfill
         \item \(A + B\)
             \[
                 \forall x \d A + B \to (A \to x) \to (B \to x) \to x
             \]
+            \vfill
         \item \(Void\)
             \[
                 absurd: \forall x \d Void \to x
             \]
+            \vfill
         \item \(Bool\)
             \[
                 \forall x \d Bool \to x \to x \to x
             \]
     \end{itemize}
+    \nota{Dá para reconstruir \(\pi_A\) e \(\pi_B\) usando:
+        \[
+            K : \forall a \d \forall b \d a \to b \to a
+        \] \[
+            KI : \forall a \d \forall b \d a \to b \to b
+        \]}
 \end{frame}
 
 \subsection{Maybe}
